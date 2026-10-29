@@ -3,8 +3,8 @@ const { useState, useEffect, useMemo } = React;
 // ================== الإعدادات ==================
 const FIREBASE_PROJECT_ID = "sanabel-alkhayrat";
 const FIREBASE_API_KEY = "AIzaSyDD8eWkJjQAvsfIE1bBN7dsx9pjOxHMcuI";
-const WHATSAPP_LINK ="https://chat.whatsapp.com/LiFBjhAbWjs71K29vHS4CC?s=cl&p=a&iam=2"  👈 ضع رابط مجموعتك هون
-const CURRENCY = "ل.ل"; // العملة اللبنانية
+const WHATSAPP_LINK = "https://chat.whatsapp.com/LiFBjhAbWjs71K29vHS4CC?s=cl&p=a&iam=2";
+const CURRENCY = "ل.ل";
 
 const CATEGORIES = [
   "مواد غذائية", "ألبان وأجبان", "لحوم ودواجن", "خضار وفواكه", 
@@ -26,13 +26,11 @@ function ProductModal({ product, onClose }) {
                 className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden relative"
                 onClick={(e) => e.stopPropagation()}
             >
-                {/* زر الإغلاق */}
                 <button 
                     onClick={onClose}
                     className="absolute top-3 left-3 bg-white/90 hover:bg-red-500 hover:text-white w-10 h-10 rounded-full font-bold text-xl shadow-lg z-10"
                 >×</button>
 
-                {/* صورة كاملة */}
                 <div className="w-full h-64 bg-gray-100 flex items-center justify-center p-3">
                     <img 
                         src={product.imageUrl} 
@@ -41,7 +39,6 @@ function ProductModal({ product, onClose }) {
                     />
                 </div>
 
-                {/* التفاصيل */}
                 <div className="p-5">
                     <span className="inline-block bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full mb-2">
                         {product.category}
@@ -68,6 +65,7 @@ function ProductModal({ product, onClose }) {
                     <a 
                         href={WHATSAPP_LINK}
                         target="_blank"
+                        rel="noopener noreferrer"
                         className="mt-4 block text-center bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl"
                     >
                         اطلب عبر واتساب 💬
@@ -124,18 +122,15 @@ function App() {
     }, [products, searchTerm, selectedCategory, minPrice, maxPrice]);
 
     return (
-        <div className="min-h-screen flex flex-col">
-
-            {/* ============ الهيدر ============ */}
+        <div className="min-h-screen flex flex-col bg-gray-50">
+            {/* الهيدر */}
             <header className="bg-gradient-to-l from-red-600 to-green-700 text-white shadow-xl sticky top-0 z-40">
                 <div className="container mx-auto px-4 py-3 flex items-center gap-3 max-w-7xl">
-                    {/* زر القائمة للجوال */}
                     <button 
                         onClick={() => setSidebarOpen(!sidebarOpen)}
                         className="lg:hidden text-2xl bg-white/20 hover:bg-white/30 w-10 h-10 rounded-lg"
                     >☰</button>
 
-                    {/* اللوغو */}
                     <img 
                         src="sanabel.png" 
                         alt="سنابل الخيرات" 
@@ -147,17 +142,16 @@ function App() {
                         <p className="text-xs text-green-100 hidden md:block">للتموين والمواد الغذائية</p>
                     </div>
 
-                    {/* زر واتساب */}
                     <a 
                         href={WHATSAPP_LINK} 
                         target="_blank"
+                        rel="noopener noreferrer"
                         className="bg-green-500 hover:bg-green-400 text-white font-bold px-3 md:px-4 py-2 rounded-lg text-sm shadow-lg flex items-center gap-1"
                     >
                         💬 <span className="hidden md:inline">انضم لجروبنا</span>
                     </a>
                 </div>
 
-                {/* شريط البحث */}
                 <div className="bg-red-700/90 py-2">
                     <div className="container mx-auto px-4 max-w-7xl">
                         <input 
@@ -171,10 +165,9 @@ function App() {
                 </div>
             </header>
 
-            {/* ============ المحتوى ============ */}
-            <div className="flex-1 flex container mx-auto max-w-7xl w-full">
+            {/* المحتوى */}
+            <div className="flex-1 flex container mx-auto max-w-7xl w-full relative">
                 
-                {/* القائمة الجانبية (التصنيفات) */}
                 <aside className={`
                     fixed lg:static inset-y-0 right-0 z-50 w-64 bg-white shadow-2xl lg:shadow-none
                     transform transition-transform duration-300 overflow-y-auto sidebar-scroll
@@ -190,8 +183,7 @@ function App() {
                             🗂️ التصنيفات
                         </h2>
 
-                        {/* فلتر السعر */}
-                        <div className="mb-4 bg-gray-50 p-3 rounded-lg">
+                        <div className="mb-4 bg-gray-50 p-3 rounded-lg border border-gray-200">
                             <p className="text-xs font-bold text-gray-700 mb-2">💰 فلترة بالسعر ({CURRENCY})</p>
                             <div className="flex gap-2">
                                 <input 
@@ -199,25 +191,24 @@ function App() {
                                     placeholder="من"
                                     value={minPrice}
                                     onChange={(e) => setMinPrice(e.target.value)}
-                                    className="w-1/2 border rounded px-2 py-1 text-sm"
+                                    className="w-1/2 border border-gray-300 rounded px-2 py-1 text-sm bg-white text-black"
                                 />
                                 <input 
                                     type="number" 
                                     placeholder="إلى"
                                     value={maxPrice}
                                     onChange={(e) => setMaxPrice(e.target.value)}
-                                    className="w-1/2 border rounded px-2 py-1 text-sm"
+                                    className="w-1/2 border border-gray-300 rounded px-2 py-1 text-sm bg-white text-black"
                                 />
                             </div>
                             {(minPrice || maxPrice) && (
                                 <button 
                                     onClick={() => {setMinPrice(""); setMaxPrice("");}}
-                                    className="text-xs text-red-600 mt-1 hover:underline"
+                                    className="text-xs text-red-600 mt-2 hover:underline font-bold"
                                 >مسح الفلتر</button>
                             )}
                         </div>
 
-                        {/* أزرار التصنيفات */}
                         <ul className="space-y-1">
                             <li>
                                 <button
@@ -249,7 +240,6 @@ function App() {
                     </div>
                 </aside>
 
-                {/* خلفية معتمة لما القائمة مفتوحة على الجوال */}
                 {sidebarOpen && (
                     <div 
                         className="fixed inset-0 bg-black/50 z-40 lg:hidden"
@@ -257,19 +247,21 @@ function App() {
                     ></div>
                 )}
 
-                {/* شبكة المنتجات */}
-                <main className="flex-1 p-4">
+                <main className="flex-1 p-4 w-full">
                     <div className="mb-3 flex justify-between items-center">
-                        <h2 className="font-bold text-gray-800">
+                        <h2 className="font-bold text-gray-800 text-lg">
                             {selectedCategory === "الكل" ? "كل المنتجات" : selectedCategory}
                         </h2>
-                        <span className="text-xs text-gray-500">{filteredProducts.length} منتج</span>
+                        <span className="text-xs bg-white px-3 py-1 rounded-full shadow text-gray-600">{filteredProducts.length} منتج</span>
                     </div>
 
                     {loading ? (
-                        <p className="text-center text-gray-500 py-20">جاري التحميل...</p>
+                        <div className="text-center py-20">
+                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-700 mx-auto mb-4"></div>
+                            <p className="text-gray-500">جاري التحميل...</p>
+                        </div>
                     ) : filteredProducts.length === 0 ? (
-                        <div className="bg-white p-10 rounded-xl shadow text-center text-gray-500">
+                        <div className="bg-white p-10 rounded-xl shadow text-center text-gray-500 border border-gray-100">
                             لا توجد منتجات مطابقة
                         </div>
                     ) : (
@@ -278,30 +270,30 @@ function App() {
                                 <div 
                                     key={product.id}
                                     onClick={() => setSelectedProduct(product)}
-                                    className="bg-white rounded-xl shadow hover:shadow-xl transition cursor-pointer overflow-hidden group border-2 border-transparent hover:border-green-600"
+                                    className="bg-white rounded-xl shadow hover:shadow-xl transition cursor-pointer overflow-hidden group border-2 border-transparent hover:border-green-600 flex flex-col"
                                 >
-                                    {/* صورة كاملة بغض النظر عن الأبعاد */}
-                                    <div className="w-full aspect-square bg-gray-50 flex items-center justify-center p-2 overflow-hidden">
+                                    <div className="w-full aspect-square bg-gray-50 flex items-center justify-center p-2 overflow-hidden relative">
                                         <img 
                                             src={product.imageUrl} 
                                             alt={product.name}
-                                            className="max-w-full max-h-full object-contain group-hover:scale-105 transition"
+                                            className="max-w-full max-h-full object-contain group-hover:scale-105 transition duration-300"
                                             loading="lazy"
                                         />
+                                        {!product.inStock && (
+                                            <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                                                <span className="bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">غير متوفر</span>
+                                            </div>
+                                        )}
                                     </div>
-                                    <div className="p-2 md:p-3">
-                                        <h3 className="font-bold text-gray-800 text-xs md:text-sm line-clamp-2 min-h-[2.5rem]">
+                                    <div className="p-2 md:p-3 flex-1 flex flex-col justify-between">
+                                        <h3 className="font-bold text-gray-800 text-xs md:text-sm line-clamp-2 min-h-[2.5rem] leading-tight">
                                             {product.name}
                                         </h3>
                                         <div className="flex justify-between items-center mt-2">
                                             <span className="text-sm md:text-base font-black text-red-600">
-                                                {product.price.toLocaleString('ar-LB')} <span className="text-[10px]">{CURRENCY}</span>
+                                                {product.price.toLocaleString('ar-LB')} <span className="text-[10px] text-gray-500">{CURRENCY}</span>
                                             </span>
-                                            {product.inStock ? (
-                                                <span className="w-2 h-2 bg-green-500 rounded-full" title="متوفر"></span>
-                                            ) : (
-                                                <span className="w-2 h-2 bg-red-500 rounded-full" title="غير متوفر"></span>
-                                            )}
+                                            <span className={`w-2.5 h-2.5 rounded-full ${product.inStock ? 'bg-green-500' : 'bg-red-500'}`} title={product.inStock ? 'متوفر' : 'غير متوفر'}></span>
                                         </div>
                                     </div>
                                 </div>
@@ -311,12 +303,10 @@ function App() {
                 </main>
             </div>
 
-            {/* ============ الفوتر ============ */}
             <footer className="bg-gradient-to-l from-red-600 to-green-700 text-white text-center py-4 mt-6">
-                <p className="text-sm">© {new Date().getFullYear()} سنابل الخيرات — جميع الحقوق محفوظة</p>
+                <p className="text-sm font-bold">© {new Date().getFullYear()} سنابل الخيرات — جميع الحقوق محفوظة</p>
             </footer>
 
-            {/* ============ بطاقة تفاصيل المنتج ============ */}
             <ProductModal product={selectedProduct} onClose={() => setSelectedProduct(null)} />
         </div>
     );
