@@ -25,16 +25,11 @@ function ProductModal({ product, onClose }) {
     if (!product) return null;
     return (
         <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4 backdrop" onClick={onClose}>
-            <div 
-                className="bg-white w-full max-w-lg sm:rounded-3xl shadow-2xl overflow-hidden relative flex flex-col max-h-[90vh] animate-[slideUp_0.3s_ease-out]"
-                onClick={(e) => e.stopPropagation()}
-            >
+            <div className="bg-white w-full max-w-lg sm:rounded-3xl shadow-2xl overflow-hidden relative flex flex-col max-h-[90vh] animate-[slideUp_0.3s_ease-out]" onClick={(e) => e.stopPropagation()}>
                 <button onClick={onClose} className="absolute top-4 left-4 bg-white/80 backdrop-blur-md hover:bg-red-50 hover:text-red-600 w-10 h-10 rounded-full flex items-center justify-center font-bold text-2xl shadow-sm z-10 transition">×</button>
-
                 <div className="w-full h-[40vh] sm:h-80 bg-gray-50 flex items-center justify-center p-6 relative">
                     <img src={product.imageUrl} alt={product.name} className="max-w-full max-h-full object-contain drop-shadow-xl" />
                 </div>
-
                 <div className="p-6 flex-1 overflow-y-auto bg-white rounded-t-3xl -mt-6 relative z-10">
                     <div className="flex justify-between items-center mb-3">
                         <span className="bg-emerald-50 text-emerald-700 text-xs font-bold px-3 py-1.5 rounded-lg border border-emerald-100">{product.category}</span>
@@ -43,17 +38,14 @@ function ProductModal({ product, onClose }) {
                             {product.inStock ? 'متوفر بالمخزون' : 'غير متوفر حالياً'}
                         </span>
                     </div>
-
                     <h2 className="text-2xl font-black text-gray-900 leading-tight mb-2">{product.name}</h2>
                     {product.description && <p className="text-gray-500 text-sm leading-relaxed mb-6">{product.description}</p>}
-
                     <div className="bg-gray-50 rounded-2xl p-4 flex items-center justify-between border border-gray-100 mb-6">
                         <span className="text-sm text-gray-500 font-bold">السعر الإجمالي</span>
                         <span className="text-3xl font-black text-emerald-600">
                             {product.price.toLocaleString('ar-LB')} <span className="text-sm font-bold text-emerald-500">{CURRENCY}</span>
                         </span>
                     </div>
-
                     <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-4 rounded-2xl text-lg transition-colors shadow-lg shadow-green-200">
                         <WhatsAppIcon className="w-6 h-6" /> اطلب الآن عبر واتساب
                     </a>
@@ -113,19 +105,39 @@ function App() {
                 <div className="container mx-auto px-4 max-w-7xl">
                     <div className="flex flex-col md:flex-row items-center justify-between py-3 md:py-4 gap-4">
                         
-                        {/* الشعار */}
-                        <div className="flex items-center justify-between w-full md:w-auto">
-                            <a href="#" className="bg-white p-1.5 rounded-2xl shadow-sm">
-                                <img src="sanabel.png" alt="سنابل الخيرات" className="h-10 md:h-12 w-auto object-contain" />
+                        {/* ✨ الشعار + أزرار الموبايل */}
+                        <div className="flex items-center justify-between w-full md:w-auto gap-3">
+                            <a href="#" className="flex items-center gap-3">
+                                {/* اللوغو الدائري الجديد */}
+                                <img 
+                                    src="sanabel.png" 
+                                    alt="سنابل الخيرات" 
+                                    className="h-12 md:h-14 w-12 md:w-14 rounded-full object-cover logo-ring bg-white" 
+                                />
+                                <div className="hidden sm:block">
+                                    <h1 className="text-white font-black text-xl leading-tight">سنابل الخيرات</h1>
+                                    <p className="text-emerald-200 text-xs">للتموين والمواد الغذائية</p>
+                                </div>
                             </a>
-                            
-                            {/* زر القائمة للجوال */}
-                            <button onClick={() => setSidebarOpen(true)} className="md:hidden text-white bg-white/10 p-2 rounded-xl hover:bg-white/20 transition">
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                            </button>
+
+                            {/* 📱 أزرار الموبايل: واتساب + قائمة */}
+                            <div className="flex md:hidden items-center gap-2">
+                                <a 
+                                    href={WHATSAPP_LINK} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="w-10 h-10 flex items-center justify-center bg-[#25D366] text-white rounded-full shadow-lg"
+                                    aria-label="انضم لمجموعة الواتساب"
+                                >
+                                    <WhatsAppIcon className="w-5 h-5" />
+                                </a>
+                                <button onClick={() => setSidebarOpen(true)} className="w-10 h-10 flex items-center justify-center text-white bg-white/10 rounded-full hover:bg-white/20 transition">
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                                </button>
+                            </div>
                         </div>
 
-                        {/* البحث (وسط الهيدر على الكمبيوتر) */}
+                        {/* البحث (وسط الهيدر) */}
                         <div className="w-full md:max-w-2xl relative group">
                             <input 
                                 type="text" placeholder="ابحث عن منتج..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}
@@ -134,7 +146,7 @@ function App() {
                             <svg className="w-5 h-5 absolute left-4 top-3.5 text-emerald-300 group-focus-within:text-gray-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         </div>
 
-                        {/* زر الواتساب */}
+                        {/* زر الواتساب للكمبيوتر */}
                         <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" 
                            className="hidden md:flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-colors shadow-lg shadow-green-900/50">
                             <WhatsAppIcon className="w-5 h-5" />
@@ -145,7 +157,7 @@ function App() {
             </header>
 
             {/* 2. شريط التصنيفات الأفقي (للجوال) */}
-            <div className="md:hidden overflow-x-auto bg-white border-b border-gray-100 shadow-sm sticky top-[65px] z-30 hide-scrollbar">
+            <div className="md:hidden overflow-x-auto bg-white border-b border-gray-100 shadow-sm sticky top-[73px] z-30 hide-scrollbar">
                 <div className="flex px-4 py-3 gap-2 w-max">
                     <button onClick={() => setSelectedCategory("الكل")} className={`px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition-colors ${selectedCategory === "الكل" ? 'bg-emerald-800 text-white' : 'bg-gray-100 text-gray-600'}`}>الكل</button>
                     {CATEGORIES.map(c => (
@@ -157,7 +169,7 @@ function App() {
             {/* 3. المحتوى */}
             <div className="flex-1 container mx-auto max-w-7xl w-full flex relative pt-4 md:pt-8 gap-6 px-4">
                 
-                {/* القائمة الجانبية (للشاشات الكبيرة فقط) */}
+                {/* القائمة الجانبية (للكمبيوتر فقط) */}
                 <aside className="hidden md:block w-64 flex-shrink-0">
                     <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-5 sticky top-28">
                         <h2 className="font-black text-gray-900 text-lg mb-4 flex items-center gap-2">
@@ -212,8 +224,7 @@ function App() {
                                     className="p-card bg-white rounded-3xl overflow-hidden cursor-pointer group flex flex-col border border-gray-100 relative">
                                     
                                     <div className="w-full aspect-[4/5] bg-white p-4 flex items-center justify-center relative overflow-hidden">
-                                        <img src={product.imageUrl} alt={product.name} 
-                                             className="p-image max-w-full max-h-full object-contain drop-shadow-sm" loading="lazy" />
+                                        <img src={product.imageUrl} alt={product.name} className="p-image max-w-full max-h-full object-contain drop-shadow-sm" loading="lazy" />
                                         
                                         {!product.inStock && (
                                             <div className="absolute inset-0 bg-white/60 backdrop-blur-[1px] flex items-center justify-center">
@@ -221,7 +232,6 @@ function App() {
                                             </div>
                                         )}
                                         
-                                        {/* زر الإضافة السريع */}
                                         <button className="absolute bottom-3 right-3 w-9 h-9 bg-emerald-600 text-white rounded-full flex items-center justify-center opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-lg hover:bg-emerald-700">
                                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 4v16m8-8H4"></path></svg>
                                         </button>
@@ -230,9 +240,7 @@ function App() {
                                     <div className="p-4 flex-1 flex flex-col justify-between bg-white">
                                         <div>
                                             <p className="text-[10px] text-emerald-600 font-bold mb-1">{product.category}</p>
-                                            <h3 className="font-bold text-gray-900 text-sm md:text-base line-clamp-2 leading-snug">
-                                                {product.name}
-                                            </h3>
+                                            <h3 className="font-bold text-gray-900 text-sm md:text-base line-clamp-2 leading-snug">{product.name}</h3>
                                         </div>
                                         
                                         <div className="mt-3">
@@ -268,8 +276,7 @@ function App() {
                             
                             <div className="space-y-1">
                                 {CATEGORIES.map(cat => (
-                                    <button key={cat} onClick={() => { setSelectedCategory(cat); setSidebarOpen(false); }} 
-                                            className={`w-full text-right px-4 py-3 rounded-xl text-sm transition-all ${selectedCategory === cat ? "bg-emerald-50 text-emerald-700 font-bold" : "hover:bg-gray-50 text-gray-600"}`}>{cat}</button>
+                                    <button key={cat} onClick={() => { setSelectedCategory(cat); setSidebarOpen(false); }} className={`w-full text-right px-4 py-3 rounded-xl text-sm transition-all ${selectedCategory === cat ? "bg-emerald-50 text-emerald-700 font-bold" : "hover:bg-gray-50 text-gray-600"}`}>{cat}</button>
                                 ))}
                             </div>
                         </div>
@@ -277,10 +284,9 @@ function App() {
                 </>
             )}
 
-            {/* الفوتر */}
-            <footer className="bg-gray-900 text-gray-400 py-12 text-center border-t border-gray-800">
-                <div className="container mx-auto px-4 max-w-7xl flex flex-col items-center">
-                    <img src="sanabel.png" alt="Logo" className="h-10 object-contain mb-4 opacity-50 grayscale" />
+            {/* الفوتر - تم حذف اللوغو */}
+            <footer className="bg-gray-900 text-gray-400 py-8 text-center border-t border-gray-800">
+                <div className="container mx-auto px-4 max-w-7xl">
                     <p className="text-sm">© {new Date().getFullYear()} سنابل الخيرات للتموين. جميع الحقوق محفوظة.</p>
                 </div>
             </footer>
