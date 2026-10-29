@@ -3,7 +3,7 @@ const { useState, useEffect, useMemo } = React;
 // ================== الإعدادات ==================
 const FIREBASE_PROJECT_ID = "sanabel-alkhayrat";
 const FIREBASE_API_KEY = "AIzaSyDD8eWkJjQAvsfIE1bBN7dsx9pjOxHMcuI";
-const WHATSAPP_LINK =https: "//chat.whatsapp.com/LiFBjhAbWjs71K29vHS4CC?s=cl&p=a&iam=2"  👈 ضع رابط مجموعتك هون
+const WHATSAPP_LINK ="https://chat.whatsapp.com/LiFBjhAbWjs71K29vHS4CC?s=cl&p=a&iam=2"  👈 ضع رابط مجموعتك هون
 const CURRENCY = "ل.ل"; // العملة اللبنانية
 
 const CATEGORIES = [
