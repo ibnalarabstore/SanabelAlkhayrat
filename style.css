@@ -1,47 +1,44 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap');
 
 :root {
-    --primary-green: #15803d;
-    --primary-red: #dc2626;
-    --bg-color: #f8fafc;
+    --brand-green: #065f46; /* أخضر زمردي غامق */
+    --brand-red: #dc2626;
+    --bg-light: #f8fafc;
 }
 
 body {
-    font-family: 'Cairo', sans-serif;
-    background-color: var(--bg-color);
+    font-family: 'Tajawal', sans-serif; /* خط عربي احترافي جداً للمتاجر */
+    background-color: var(--bg-light);
     margin: 0;
     padding: 0;
-    color: #1e293b;
+    color: #0f172a;
 }
 
-/* شريط التمرير المخصص */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: #f1f1f1; }
-::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+/* شريط التمرير */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-/* تأثيرات حركية للبطاقات */
-.product-card {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+/* تأثيرات المنتج */
+.p-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-}
-
-/* خلفية البطاقة التفصيلية */
-.modal-backdrop {
-    backdrop-filter: blur(4px);
-    background-color: rgba(0, 0, 0, 0.6);
+.p-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px -10px rgba(6, 95, 70, 0.15);
+    border-color: #10b981;
 }
 
-/* أيقونة الواتساب المخصصة */
-.wa-btn {
-    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+.p-image {
+    transition: transform 0.5s ease;
 }
-.wa-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+.p-card:hover .p-image {
+    transform: scale(1.08);
+}
+
+/* خلفية المودال */
+.backdrop {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(8px);
 }
